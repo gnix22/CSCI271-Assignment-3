@@ -12,10 +12,19 @@ class NumberCounter{
         searchNum_ = searchNumIn;
         searchNumCount_ = recurserCounter_(numArray_.length, 0);
     }
+    public int lengthReader(int i){
+        if(i < 0){
+            return 0;
+        }
+        if(stringIn_.charAt(i) != ' '){
+            return 1 + lengthReader(i-1);
+        }
+        return lengthReader(i-1);
+    }
     public void printResult(){
-        System.out.println("N= " + stringIn_);
-        System.out.println("D= " + searchNum_);
-        System.out.println("Answer= " + searchNumCount_);
+        System.out.println("N = " + stringIn_);
+        System.out.println("D = " + searchNum_);
+        System.out.println("Answer = " + searchNumCount_);
     }
     private int[] strToNumArray(String s){
         int[] convertedArray = new int[s.length()];
@@ -26,7 +35,7 @@ class NumberCounter{
         return convertedArray;
     }
     private int recurserCounter_(int searchSize, int i) {
-        if (searchSize == 0) {
+        if (searchSize < 0) {
             return 0;
         }
         if (searchNum_ == numArray_[i]) {

@@ -7,6 +7,8 @@ public class CSCI_271_Garrett_Nix_Assignment_3_Main{
             System.out.println(searchNum);
             NumberCounter result = new NumberCounter(numStringIn, searchNum);
             result.printResult();
+            LittleCLI cli = new LittleCLI(result);
+            cli.run();
         } catch (ArrayIndexOutOfBoundsException e){
             System.err.println("error: please provide a string of numbers followed by a number to search the string for.");
         }
