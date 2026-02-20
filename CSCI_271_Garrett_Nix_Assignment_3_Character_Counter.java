@@ -10,7 +10,7 @@ class Counter{
     private int searchNumCount_;
     private char searchChar_;
     private boolean isInt_;
-    private long max_;
+    private long max_ = 0;
     // initializer
     public Counter(String strIn, int searchNumIn, boolean isInt){
         stringIn_ = strIn;
@@ -24,6 +24,7 @@ class Counter{
         } else isInt_ = false;
         searchNumCount_ = recurserCounter_(numArray_.length-1, 0);
         stringOut_ = reverseOutput(numArray_.length - 1);
+        max(numArray_.length-1);
     }
     public Counter(String strIn, char searchCharIn){
         isInt_ = false; // assume that if isInt isn't passed, it is false 
@@ -44,7 +45,11 @@ class Counter{
         return lengthReader(i-1);
     }
     public void printResult(int choice){
-        if(isInt_ && choice >= 4){
+        if(choice >= 4){
+            if(!isInt_){
+                System.err.println("error: options 4,5 limited to integers");
+                return;
+            }
             switch (choice - 3) {
                 case 1:
                     System.out.println("the max of the string is " + max_);
@@ -67,7 +72,7 @@ class Counter{
                 System.out.println("the backwards output of the string is: " + stringOut_);
                 break;
             default:
-                break;
+                System.err.println("invalid option.");
         }
     }
     public int recurserCounter_(int searchSize, int i) {
@@ -84,10 +89,10 @@ class Counter{
         return recurserCounter_(searchSize - 1, i + 1);
     }
     public long max(int i){
-        if (i < 0){
+        if (i <= 0){
             return 0;
         }
-        if(numArray_[i-1] > max(i)){
+        if(numArray_[i-1] > max_){
             max_ = numArray_[i-1];
         }
         return max(i - 1);
@@ -104,7 +109,7 @@ class Counter{
         return reverseOutput(i-1);
     }
     public long sumEven(int i){
-        if(i <= 1){
+        if(i < 0){
             return 0;
         }
         if(numArray_[i] % 2 == 0){

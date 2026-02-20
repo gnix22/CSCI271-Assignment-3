@@ -12,7 +12,7 @@ public class CSCI_271_Garrett_Nix_Assignment_3_Main{
             System.out.println("    4: output the maximum of the list of numbers");
             System.out.println("    5: sum all even elements, output the result");
             int choice = userIn.nextInt();
-            System.out.println(args[0] + " " + args[1] + " " + " " + args[2]);
+            // System.out.println(args[0] + " " + args[1] + " " + " " + args[2]); testing
             if(args[2].charAt(0) == 'i'){
                 int searchNum = Integer.parseInt(args[1]);
                 Counter result = new Counter(stringIn, searchNum, true);
