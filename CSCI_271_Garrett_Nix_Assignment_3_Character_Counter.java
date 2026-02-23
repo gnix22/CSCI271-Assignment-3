@@ -78,7 +78,7 @@ class Counter{
     * Description: prints the result of various methods, given a choice input.
     *
     * Parameters: 
-    *
+    *   choice: integer that is used for CLI implementation.
     *
     * Pre: a choice must be made by the user, and every method must be possible
     * to compute in order for this method to be called.
@@ -218,7 +218,7 @@ class Counter{
     *
     * Post: the input string will be reversed and output to the terminal.
     *
-    * Returns: itself 
+    * Returns: an output string in reverse order from the input
     *
     * Called by: itself, Counter 
     * Calls: itself 
@@ -236,6 +236,22 @@ class Counter{
         }
         return reverseOutput_(i-1);
     }
+    /******************************<sumEven_()>*****************************
+    * Description: takes in the string of digits, and sums the even integers 
+    *
+    * Parameters: 
+    *   i: recursive index
+    *
+    * Pre: a string of digits must be provided in order for the sum of even integers 
+    * to be determined.
+    *
+    * Post: list the postconditions 
+    *
+    * Returns: returns the sum of even integers 
+    *
+    * Called by: itself, Counter()
+    * Calls: itself 
+    ************************************************************************/
     private long sumEven_(int i){
         if(i < 0){
             return 0;
@@ -246,6 +262,21 @@ class Counter{
         return sumEven_(i - 1);
     }
     // HELPER FUNCTIONS
+    /******************************<strToNumArray_()>*****************************
+    * Description: turns a string into a number recursively 
+    *
+    * Parameters:
+    *   i: recursive index
+    *
+    * Pre: a string of characters is provided 
+    *
+    * Post: a converted array from char to int is formed 
+    *
+    * Returns: describe what value the function returns 
+    *
+    * Called by: itself, Counter()
+    * Calls: itself 
+    ************************************************************************/
     private long[] strToNumArray_(int i){
         if (i >= stringIn_.length()){
             return numArray_;

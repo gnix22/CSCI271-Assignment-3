@@ -1,6 +1,22 @@
 import java.util.Scanner;
 public class CSCI_271_Garrett_Nix_Assignment_3_Main{
-    
+    /******************************<main()>*****************************
+    * Description: main function that creates a cli program, allowing 
+    * for string operations to be made
+    *
+    * Parameters:
+    *   args: cmdline arguments to be provided by the user
+    *
+    * Pre: the code must be compiled correctly, and then the user has to run
+    * the call to this class with proper arguments to run
+    *
+    * Post: a command-line program will run 
+    *
+    * Returns: non 
+    *
+    * Called by: none 
+    * Calls: Constructor(),printResult 
+    ************************************************************************/
     public static void main(String[] args){
         Scanner userIn = new Scanner(System.in);
         try{
