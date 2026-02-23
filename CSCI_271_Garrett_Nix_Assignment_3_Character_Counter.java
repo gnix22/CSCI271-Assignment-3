@@ -11,21 +11,60 @@ class Counter{
     private long max_ = 0;
     private long evenSum_ = 0;
     // initializer
+    /******************************<Counter>*****************************
+    * Description: constructor method for numbers 
+    *
+    * Parameters: 
+    *   strIn: string taken from cmdline
+    *   searchNumIn: integer that becomes the element to search for.
+    *   isInt: boolean to check whether an element is an integer, used for
+    *   edge cases.
+    *
+    * Pre: a string of integers, must be passed in along with a search element.
+    * The boolean must also be true in order for this method to construct the 
+    * class object.
+    *
+    * Post: a constructed object of type Counter will be created, allowing for
+    * integer methods.
+    *
+    * Returns: none
+    *
+    * Called by: main()
+    * Calls: strToNumArray_(), recurserCounter_(), reverseOutput_(), max_(),
+    * sumEven_();
+    ************************************************************************/
     public Counter(String strIn, int searchNumIn, boolean isInt){
         stringIn_ = strIn;
         charArray_ = stringIn_.toCharArray();
         charOutArray_ = new char[stringIn_.length()];
         numArray_ = new long[stringIn_.length()];
-        numArray_ = strToNumArray(0);
+        numArray_ = strToNumArray_(0);
         searchNum_ = searchNumIn;
-        if(isInt){
-            isInt_ = true;
-        } else isInt_ = false;
+        if(!isInt){
+            isInt_ = false;
+            System.err.println("please ensure string is an integer to use integer searching.");
+            return;
+        }
         searchNumCount_ = recurserCounter_(numArray_.length-1, 0);
-        stringOut_ = reverseOutput(numArray_.length - 1);
-        max(numArray_.length-1);
-        sumEven(numArray_.length-1);
+        stringOut_ = reverseOutput_(numArray_.length - 1);
+        max_(numArray_.length-1);
+        sumEven_(numArray_.length-1);
     }
+    /******************************<Counter>*****************************
+    * Description: constructor method for characters
+    *
+    * Parameters: 
+    *   strIn: string taken from cmdline
+    *
+    * Pre: a string must be given along with a character search element. 
+    *   the passed arguments are assumed only to be char.
+    * Post: an object of type counter is constructed.
+    *
+    * Returns: none 
+    *
+    * Called by: main()
+    * Calls: recurserCounter_(), reverseOutput_() 
+    ************************************************************************/
     public Counter(String strIn, char searchCharIn){
         isInt_ = false; // assume that if isInt isn't passed, it is false 
         stringIn_ = strIn;
@@ -33,8 +72,24 @@ class Counter{
         charOutArray_ = new char[stringIn_.length()];
         searchChar_ = searchCharIn;
         searchNumCount_ = recurserCounter_(charArray_.length-1, 0);
-        stringOut_ = reverseOutput(charArray_.length - 1);
+        stringOut_ = reverseOutput_(charArray_.length - 1);
     }
+    /******************************<printResult>*****************************
+    * Description: prints the result of various methods, given a choice input.
+    *
+    * Parameters: 
+    *
+    *
+    * Pre: a choice must be made by the user, and every method must be possible
+    * to compute in order for this method to be called.
+    *
+    * Post: the result of the specified choice will be given on the terminal. 
+    *
+    * Returns: void (none) 
+    *
+    * Called by: main() 
+    * Calls: lengthReader_()
+    ************************************************************************/
     public void printResult(int choice){
         if(choice >= 4){
             if(!isInt_){
@@ -56,7 +111,7 @@ class Counter{
         }
         switch (choice) {
             case 1:
-                System.out.println("the length of the string is: " + lengthReader(stringIn_.length() - 1));
+                System.out.println("the length of the string is: " + lengthReader_(stringIn_.length() - 1));
                 break;
             case 2:
                 System.out.println("the number of times the search element occurs is " + searchNumCount_);
@@ -71,15 +126,47 @@ class Counter{
                 break;
         }
     }
-    private int lengthReader(int i){
+    /******************************<lengthReader_()>*****************************
+    * Description: recursivel counts the length of a given string. 
+    *
+    * Parameters: 
+    *   i: integer that marks index of recursion
+    *
+    * Pre: an integer of i must be input set greater than zero. 
+    *
+    * Post: the length of the string this method is called on will give the length
+    * of the string.
+    *
+    * Returns: integer of string count. 
+    *
+    * Called by: Counter(), itself
+    * Calls: itself 
+    ************************************************************************/
+    private int lengthReader_(int i){
         if(i < 0){
             return 0;
         }
         if(stringIn_.charAt(i) != ' '){
-            return 1 + lengthReader(i-1);
+            return 1 + lengthReader_(i-1);
         }
-        return lengthReader(i-1);
+        return lengthReader_(i-1);
     }
+    /******************************<recurserCounter_()>*****************************
+    * Description: recursively counts the number of times the search element is matched. 
+    *
+    * Parameters: 
+    *   searchSize: integer of the length of the string.
+    *   i: recursive index
+    *
+    * Pre: a valid object must be constructed, and a choice must be made ( see printResult ) 
+    *
+    * Post: the number of times the element occurs within a given string will show. 
+    *
+    * Returns: integer denoting the number of times the search element occurs.
+    *
+    * Called by: itself 
+    * Calls: Counter(), itself 
+    ************************************************************************/
     private int recurserCounter_(int searchSize, int i) {
         if (searchSize < 0) { // base case
             return 0;
@@ -95,7 +182,22 @@ class Counter{
         }
         return recurserCounter_(searchSize - 1, i + 1);
     }
-    private long max(int i){
+    /******************************<max_()>*****************************
+    * Description: recursively provides the maximum of integer digits within the string 
+    *
+    * Parameters: i: recursive index 
+    *
+    * Pre: a digit string must be provided by the user in order to call this
+    * method.
+    *
+    * Post: a maximum of the digits will be found 
+    *
+    * Returns: long integer maximum 
+    *
+    * Called by: Counter(), itself 
+    * Calls: itself 
+    ************************************************************************/
+    private long max_(int i){
         if (i <= 0){ // base case
             return 0;
         }
@@ -104,9 +206,24 @@ class Counter{
         if(numArray_[i-1] > max_){
             max_ = numArray_[i-1];
         }
-        return max(i - 1);
+        return max_(i - 1);
     }
-    private String reverseOutput(int i){
+    /******************************<reverseOutput_>*****************************
+    * Description: reverses the input string recursively
+    *
+    * Parameters: 
+    *   i: recursion index
+    *
+    * Pre: a string of either int or char must be provided
+    *
+    * Post: the input string will be reversed and output to the terminal.
+    *
+    * Returns: itself 
+    *
+    * Called by: itself, Counter 
+    * Calls: itself 
+    ************************************************************************/
+    private String reverseOutput_(int i){
         // the way in which I have this laid out is purely for robustness in being able to recycle functions for further use
         // if we have an int, type cast the numArray to char, that is then passed into the return string when base case is hit.
         if(i <= 0){ // base case
@@ -117,23 +234,23 @@ class Counter{
         } else {
             charOutArray_[i] = charArray_[charArray_.length-1-i];
         }
-        return reverseOutput(i-1);
+        return reverseOutput_(i-1);
     }
-    private long sumEven(int i){
+    private long sumEven_(int i){
         if(i < 0){
             return 0;
         }
         if(numArray_[i] % 2 == 0){
-            evenSum_ += numArray_[i] + sumEven(i-1);   
+            evenSum_ += numArray_[i] + sumEven_(i-1);
         }
-        return sumEven(i - 1);
+        return sumEven_(i - 1);
     }
     // HELPER FUNCTIONS
-    private long[] strToNumArray(int i){
+    private long[] strToNumArray_(int i){
         if (i >= stringIn_.length()){
             return numArray_;
         } 
         numArray_[i] = charArray_[i] - '0';
-        return strToNumArray(i + 1);
+        return strToNumArray_(i + 1);
     }
 }
