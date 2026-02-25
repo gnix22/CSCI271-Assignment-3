@@ -1,15 +1,15 @@
 class Counter{
-    private String stringIn_;
-    private long[] numArray_;
-    private char[] charArray_;
-    private char[] charOutArray_;
-    private String stringOut_;
-    private int searchNum_;
-    private int searchNumCount_;
-    private char searchChar_;
-    private boolean isInt_;
-    private long max_ = 0;
-    private long evenSum_ = 0;
+    private String stringIn_; // input string from cmdline
+    private long[] numArray_; // array of numbers obtained from strToNumArray_
+    private char[] charArray_; // array of characters
+    private char[] charOutArray_; // output array
+    private String stringOut_; // output string
+    private int searchNum_; // element to search through the arrays
+    private int searchNumCount_; // count used for computing num times search element happens
+    private char searchChar_; // same purpose as searchNum_
+    private boolean isInt_; // used in testing integer vs char cases.
+    private long max_ = 0; // used to hold maximum number of elements
+    private long evenSum_ = 0; // used to hold sum of even numbers
     // initializer
     /******************************<Counter>*****************************
     * Description: constructor method for numbers 
@@ -69,7 +69,7 @@ class Counter{
         isInt_ = false; // assume that if isInt isn't passed, it is false 
         stringIn_ = strIn;
         charArray_ = stringIn_.toCharArray();
-        charOutArray_ = new char[stringIn_.length()];
+        charOutArray_ = new char[stringIn_.length()]; // set a new character array to pre initialize output array
         searchChar_ = searchCharIn;
         searchNumCount_ = recurserCounter_(charArray_.length-1, 0);
         stringOut_ = reverseOutput_(charArray_.length - 1);
@@ -90,7 +90,7 @@ class Counter{
     * Called by: main() 
     * Calls: lengthReader_()
     ************************************************************************/
-    public void printResult(int choice){
+    public void printResult(int choice){ // has constant runtime complexity, that is o(1)
         if(choice >= 4){
             if(!isInt_){
                 System.err.println("error: options 4,5 limited to integers");
@@ -142,14 +142,14 @@ class Counter{
     * Called by: Counter(), itself
     * Calls: itself 
     ************************************************************************/
-    private int lengthReader_(int i){
-        if(i < 0){
+    private int lengthReader_(int i){ // O(n): 2c+2n = O(n)
+        if(i < 0){ // constant
             return 0;
         }
-        if(stringIn_.charAt(i) != ' '){
-            return 1 + lengthReader_(i-1);
+        if(stringIn_.charAt(i) != ' '){ // constant
+            return 1 + lengthReader_(i-1); // linear
         }
-        return lengthReader_(i-1);
+        return lengthReader_(i-1); // linear
     }
     /******************************<recurserCounter_()>*****************************
     * Description: recursively counts the number of times the search element is matched. 
@@ -167,20 +167,20 @@ class Counter{
     * Called by: itself 
     * Calls: Counter(), itself 
     ************************************************************************/
-    private int recurserCounter_(int searchSize, int i) {
+    private int recurserCounter_(int searchSize, int i) { // O(n^2): 2c+3n^2=O(n^2)
         if (searchSize < 0) { // base case
-            return 0;
+            return 0; // constant
         }
         // if the number is an integer, and the number matches the search element, increment, otherwise it is char
         // and same rule applies.
         if (isInt_ && searchNum_ == numArray_[i]) { // shortcircuit logic error fix
             isInt_ = true; // likely unneeded, but for insurance.
-            return 1 + recurserCounter_(searchSize - 1, i + 1); // fun criss cross increments.
+            return 1 + recurserCounter_(searchSize - 1, i + 1); // fun criss cross increments. // each increment, adjusts element twice
         } else if(searchChar_ == charArray_[i] && !isInt_){
             isInt_ = false; // likely unneeded, but for insurance.
-            return 1 + recurserCounter_(searchSize - 1, i + 1);
+            return 1 + recurserCounter_(searchSize - 1, i + 1); // adjusts element twice
         }
-        return recurserCounter_(searchSize - 1, i + 1);
+        return recurserCounter_(searchSize - 1, i + 1); // adjusts elements twice
     }
     /******************************<max_()>*****************************
     * Description: recursively provides the maximum of integer digits within the string 
@@ -197,7 +197,7 @@ class Counter{
     * Called by: Counter(), itself 
     * Calls: itself 
     ************************************************************************/
-    private long max_(int i){
+    private long max_(int i){ // O(n) : c+n=O(n)
         if (i <= 0){ // base case
             return 0;
         }
@@ -223,7 +223,7 @@ class Counter{
     * Called by: itself, Counter 
     * Calls: itself 
     ************************************************************************/
-    private String reverseOutput_(int i){
+    private String reverseOutput_(int i){ // O(n) : c+n = o(n)
         // the way in which I have this laid out is purely for robustness in being able to recycle functions for further use
         // if we have an int, type cast the numArray to char, that is then passed into the return string when base case is hit.
         if(i <= 0){ // base case
@@ -252,7 +252,7 @@ class Counter{
     * Called by: itself, Counter()
     * Calls: itself 
     ************************************************************************/
-    private long sumEven_(int i){
+    private long sumEven_(int i){ // O(n) = c+n = o(n)
         if(i < 0){
             return 0;
         }
@@ -277,7 +277,7 @@ class Counter{
     * Called by: itself, Counter()
     * Calls: itself 
     ************************************************************************/
-    private long[] strToNumArray_(int i){
+    private long[] strToNumArray_(int i){ // O(n)
         if (i >= stringIn_.length()){
             return numArray_;
         } 

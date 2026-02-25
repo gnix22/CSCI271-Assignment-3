@@ -1,0 +1,38 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx} % Use this package to include images
+\usepackage{amsmath} % A library of many standard math expressions
+\usepackage[margin=1in]{geometry}% Sets 1in margins.
+\usepackage{fancyhdr} % Creates headers and footers
+\usepackage{enumerate}  %These two package give custom labels to a list
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{amsthm} % for theorem style environments for question and answers for readablity
+\usepackage{titlesec}
+% Customize section font size
+\titleformat*{\section}{\fontsize{14pt}{16pt}\bfseries\selectfont}
+% Customize subsection font size
+\titleformat*{\subsection}{\fontsize{12pt}{14pt}\bfseries\selectfont}
+\titlespacing*{\section}{0pt}{1ex}{0.5ex}
+\titlespacing*{\subsection}{0pt}{0.8ex}{0.4ex}
+\newtheorem*{thm}{Theorem}
+\theoremstyle{definition}
+\newtheorem*{q}{Question}
+\newtheorem*{ans}{Answer}
+\title{Assignment 3 Report}
+\author{Garrett Nix}
+\date{\today}
+\begin{document}
+\maketitle
+\vspace{-2em}  % Remove space after title block
+\section{Introduction}
+Recursion is a technique that is used in programming as a form of readablity in code, at the expense of computational cost in some cases. This assignment was a practice in implementation of recursion with string operations.
+\section{Purpose}
+As stated the purpose of this project was to work with recursion, and familiarizing the notion of using recursion in code in order to create relatively readable code.
+\section{Implementation}
+The implementation I went with for this project is that of a more user-friendly approach, opting for the methods we were tasked with creating to be private, leaving the constructor methods and print methods public and codeable by the user. This allows for an end user to not have to worry about the correct way or cases when to call these methods, making something like a CLI, a simple implementation.
+\section{Discussion}
+A point of contention I came to that I could not figure out a solid solution to was surprisingly the first function where we were to recursively find the length of the input string. I was able to recursively perform the function, but not without using the simpler method .length. I believe this is mainly on my part as I may just not know the tricks yet. 
+
+I also want to briefly discuss the computational worst case calculations for the project. Each function in the code, except for recurserCounter() and printResult(), have a runtime complexity in the worst case of $O(n)$. recurserCounter() has $O(n^2)$, printResult() has $O(1)$.
+
+\end{document}
